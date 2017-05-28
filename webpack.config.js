@@ -1,3 +1,6 @@
+var webpack = require('webpack');
+require('dotenv').config();
+
 module.exports = {
 	entry: [
 		'./src/index.js'
@@ -28,5 +31,16 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		contentBase: './'
-	}
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			process: {
+				env: {
+					CLIENT_ID: `'${process.env.CLIENT_ID}'`,
+					API_URL: `'${process.env.API_URL}'`,
+					REDIRECT_URI: `'${process.env.REDIRECT_URI}'`
+				}
+			}
+		})
+	]
 };

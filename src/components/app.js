@@ -7,7 +7,7 @@ import axios from 'axios'
 export default class App extends Component {
 	componentWillMount() {
 		const query = this.props.location.query,
-			apiUrl 		= 'http://localhost:5000', // back-end url
+			apiUrl 		= process.env.API_URL,
 			cbAddress = 'auth/instagram'; // call back address
 
 		query.code && axios.get(`${apiUrl}/${cbAddress}/callback?code=${query.code}`)
@@ -17,14 +17,14 @@ export default class App extends Component {
 
 	render () {
 		const serviceUrl = 'https://api.instagram.com',
-			clientId = 'b2c21614a6854184af420c92673f46e9',
-			redirectUri = 'http://localhost:8080/',
-			responseType = 'code';
+			clientId 			 = process.env.CLIENT_ID,
+			redirectUri 	 = process.env.REDIRECT_URI,
+			responseType 	 = 'code';
 
 		const authUrl = `
 			${serviceUrl}/oauth/authorize/
 			?client_id=${clientId}
-			&redirect_uri=${redirectUri}
+			&redirect_uri=${redirectUri}/
 			&response_type=${responseType}
 		`;
 
