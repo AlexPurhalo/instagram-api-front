@@ -10,10 +10,10 @@ const apiUrl = process.env.API_URL;
 // Authentication with Instagram
 const authWithInstagram = (sessionCode) => {
 	const authWithInstagramSuccess = (authInfo) => {
-		const authInfoArr = authInfo.split(':');
-
-		localStorage.setItem('userId', authInfoArr[0]);
-		localStorage.setItem('jwt', authInfoArr[1]);
+		console.log(authInfo)
+		localStorage.setItem('jwt', authInfo['token']);
+		localStorage.setItem('userId', authInfo['token'].split(':')[0]);
+		localStorage.setItem('instToken', authInfo['inst_token'])
 
 		return { type: AUTHENTICATE_SUCCESS }
 	};
@@ -31,6 +31,7 @@ const authWithInstagram = (sessionCode) => {
 const signOut = () => {
 	localStorage.removeItem('userId');
 	localStorage.removeItem('jwt');
+	localStorage.removeItem('instT	oken');
 
 	return { type: SIGN_OUT }
 };
