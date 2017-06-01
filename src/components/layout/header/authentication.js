@@ -29,15 +29,16 @@ class Authentication extends Component {
 			&response_type=${responseType}
 		`;
 
-		console.log(this.props.authenticated)
 		return (
-			<div>
-				{
-					this.props.authenticated
-						? <button onClick={() => this.props.signOut()}>Sign Out</button>
-						: <a href={authUrl}>Auth with Instagram</a>
-				}
-			</div>
+			<ul className="inline-list">
+				<li className="inline-block">
+					{
+						this.props.authenticated
+							? <button className='sign-out-btn non-styled-btn' onClick={() => this.props.signOut()}>Sign Out</button>
+							: <a href={authUrl} className="sign-up-link">Sign Up</a>
+					}
+				</li>
+			</ul>
 		)
 	}
 }

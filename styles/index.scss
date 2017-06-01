@@ -1,0 +1,20 @@
+@import 'layout/header';
+@import 'home/presentation';
+@import 'home/dashboard';
+.app {
+	.non-styled-btn {
+		border: 0;
+		background: transparent;
+		cursor: pointer;
+
+		&:focus {
+			outline:0 !important;
+		};
+	}
+
+	ul.inline-list {
+		li.inline-block {
+			display: inline-block;
+		}
+	}
+}

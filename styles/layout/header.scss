@@ -1,0 +1,25 @@
+.header {
+	margin: 0 auto;
+	text-align: right;
+	border-bottom: 1.2px solid grey;
+	max-height: 46px;
+
+	li {
+		margin: 0.5rem 0;
+	}
+
+	.sign-up-link {
+		text-decoration: none;
+		color: inherit;
+
+
+		&:hover {
+			color: red;
+		}
+	}
+	.sign-out-btn {
+		&:hover {
+			color: grey;
+		}
+	}
+}

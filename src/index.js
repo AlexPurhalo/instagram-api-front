@@ -20,7 +20,7 @@ import reducers from './reducers/index';
 
 // Store definition with Middleware applying and Rendering of React Document Object Model (DOM)
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore),
-	reducer_store = createStoreWithMiddleware(reducers), token = localStorage.getItem('jwt');
+	reducer_store = createStoreWithMiddleware(reducers), token = localStorage.getItem('X-Access-Token');
 
 // if token exist changes authenticated flag
 token && reducer_store.dispatch({ type: AUTO_SIGN_IN });

@@ -10,10 +10,9 @@ const apiUrl = process.env.API_URL;
 // Authentication with Instagram
 const authWithInstagram = (sessionCode) => {
 	const authWithInstagramSuccess = (authInfo) => {
-		console.log(authInfo)
-		localStorage.setItem('jwt', authInfo['token']);
-		localStorage.setItem('userId', authInfo['token'].split(':')[0]);
-		localStorage.setItem('instToken', authInfo['inst_token'])
+		localStorage.setItem('X-Access-Token', authInfo['token']);
+		localStorage.setItem('X-User-Id', authInfo['token'].split(':')[0]);
+		localStorage.setItem('X-Instagram-Access-Token', authInfo['inst_token'])
 
 		return { type: AUTHENTICATE_SUCCESS }
 	};
@@ -29,9 +28,9 @@ const authWithInstagram = (sessionCode) => {
 
 // Localstorage cleaning and authenticated state changing
 const signOut = () => {
-	localStorage.removeItem('userId');
-	localStorage.removeItem('jwt');
-	localStorage.removeItem('instT	oken');
+	localStorage.removeItem('X-Access-Token');
+	localStorage.removeItem('X-User-Id');
+	localStorage.removeItem('X-Instagram-Access-Token');
 
 	return { type: SIGN_OUT }
 };

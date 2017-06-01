@@ -1,9 +1,10 @@
 // Node modules import
 import React, { Component } from 'react';
 import Header from './layout/header';
+import { connect } from 'react-redux'
 
 // Layout component
-export default class App extends Component {
+ class App extends Component {
 	constructor() {
 		super();
 
@@ -17,10 +18,19 @@ export default class App extends Component {
 
 	render () {
 		return (
-			<div className="container">
+			<div className="app">
 				<Header instagramSessionCode={this.instagramSessionCode} />
-				{this.props.children}
+				<div className="container">
+					{this.props.children}
+				</div>
 			</div>
 		)
 	}
 }
+
+function mapStateToProps(state) {
+	return {
+		isAuthenticated: state.sessions.authenticated
+	}
+}
+export default connect(mapStateToProps)(App);

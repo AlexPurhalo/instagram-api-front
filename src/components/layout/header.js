@@ -12,11 +12,9 @@ export default class Header extends Component {
 
 		return (
 			<div className="header">
-				<nav className="navbar navbar-default">
-					<div className="container">
-						<Authentication instagramSessionCode={instagramSessionCode && instagramSessionCode}/>
-					</div>
-				</nav>
+				<div className="container">
+					<Authentication instagramSessionCode={instagramSessionCode && instagramSessionCode}/>
+				</div>
 			</div>
 		);
 	}
