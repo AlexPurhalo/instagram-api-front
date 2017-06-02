@@ -1,6 +1,8 @@
 @import 'layout/header';
 @import 'home/presentation';
 @import 'home/dashboard';
+@import 'home/new-item-form';
+
 .app {
 	.non-styled-btn {
 		border: 0;
@@ -15,6 +17,16 @@
 	ul.inline-list {
 		li.inline-block {
 			display: inline-block;
+		}
+	}
+
+	.underline-input {
+		border: none;
+		border-bottom: solid;
+		text-align: center;
+
+		&:focus {
+			outline: none;
 		}
 	}
 }

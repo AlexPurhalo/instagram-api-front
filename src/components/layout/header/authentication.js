@@ -38,7 +38,7 @@ class Authentication extends Component {
 		`;
 
 		const { authenticated, signOut, user: { avatar } } = this.props
-		console.log(this.props.user)
+
 		return (
 			<ul className="inline-list">
 				<li className="inline-block">

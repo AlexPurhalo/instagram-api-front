@@ -3,7 +3,8 @@ export const INITIAL_STATE = {
 	profile: {
 		id: null,
 		avatar: null,
-		username: null
+		username: null,
+		itemsCount: null
 	}
 };
 
@@ -20,10 +21,10 @@ export default (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				authenticated: false,
-				profile: { id: null, username: null, avatar: null }
+				profile: { id: null, username: null, avatar: null, itemsCount: null }
 			};
 		case AUTHENTICATE_SUCCESS:
-			const { inst_avatar, id, username } = action.payload
+			const { inst_avatar, id, username, items_count } = action.payload
 
 			return {
 				...state,
@@ -31,7 +32,8 @@ export default (state = INITIAL_STATE, action) => {
 				profile: {
 					id,
 					username,
-					avatar: inst_avatar
+					avatar: inst_avatar,
+					itemsCount: items_count
 				}
 			};
 		case AUTHENTICATE_FAILURE:
