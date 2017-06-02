@@ -6,14 +6,22 @@ import { browserHistory } from 'react-router';
 
 // Actions import
 import { authWithInstagram, signOut } from '../../../actions/sessions';
+import { fetchAccountData } from '../../../actions/users';
 
 // Shows Registration form for user
 class Authentication extends Component {
 	componentWillMount() {
-		let sessionCode = this.props.instagramSessionCode;
+		const {
+			authenticated,
+			instagramSessionCode,
+			authWithInstagram,
+			fetchAccountData
+		} = this.props;
 
-		sessionCode && this.props.authWithInstagram(sessionCode);
+		let sessionCode = instagramSessionCode;
+		sessionCode && authWithInstagram(sessionCode);
 		browserHistory.push('/')
+		authenticated && fetchAccountData();
 	}
 
 	render() {
@@ -29,12 +37,17 @@ class Authentication extends Component {
 			&response_type=${responseType}
 		`;
 
+		const { authenticated, signOut, user: { avatar } } = this.props
+		console.log(this.props.user)
 		return (
 			<ul className="inline-list">
 				<li className="inline-block">
+					{ avatar && <img src={avatar} alt="avatar" className="avatar"/> }
+					</li>
+				<li className="inline-block">
 					{
-						this.props.authenticated
-							? <button className='sign-out-btn non-styled-btn' onClick={() => this.props.signOut()}>Sign Out</button>
+						authenticated
+							? <button className='sign-out-btn non-styled-btn' onClick={() => signOut()}>Sign Out</button>
 							: <a href={authUrl} className="sign-up-link">Sign Up</a>
 					}
 				</li>
@@ -45,8 +58,13 @@ class Authentication extends Component {
 
 export function mapStateToProps(state) {
 	return {
-		authenticated: state.sessions.authenticated
+		authenticated: state.sessions.authenticated,
+		user: state.sessions.profile
 	}
 }
 
-export default connect(mapStateToProps, { authWithInstagram, signOut })(Authentication);
+export default connect(mapStateToProps, {
+	authWithInstagram,
+	signOut,
+	fetchAccountData
+})(Authentication);

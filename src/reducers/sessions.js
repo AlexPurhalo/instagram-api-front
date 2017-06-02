@@ -1,5 +1,10 @@
 export const INITIAL_STATE = {
-	authenticated: false
+	authenticated: false,
+	profile: {
+		id: null,
+		avatar: null,
+		username: null
+	}
 };
 
 import {
@@ -12,9 +17,23 @@ import {
 export default (state = INITIAL_STATE, action) => {
 	switch(action.type) {
 		case SIGN_OUT:
-			return { ...state, authenticated: false };
+			return {
+				...state,
+				authenticated: false,
+				profile: { id: null, username: null, avatar: null }
+			};
 		case AUTHENTICATE_SUCCESS:
-			return { ...state, authenticated: true };
+			const { inst_avatar, id, username } = action.payload
+
+			return {
+				...state,
+				authenticated: true,
+				profile: {
+					id,
+					username,
+					avatar: inst_avatar
+				}
+			};
 		case AUTHENTICATE_FAILURE:
 			return { ...state, authenticated: false };
 		case AUTO_SIGN_IN:

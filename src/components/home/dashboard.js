@@ -1,8 +1,12 @@
 // Node modules import
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+// Actions import
+import { fetchUserItems } from '../../actions/items';
 
 // DashboardPage
-export default class DashboardPage extends Component {
+class DashboardPage extends Component {
 	render() {
 		return (
 			<div className="dashboard">
@@ -11,3 +15,5 @@ export default class DashboardPage extends Component {
 		);
 	}
 }
+
+export default connect(null)(DashboardPage);

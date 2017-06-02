@@ -9,21 +9,22 @@ const apiUrl = process.env.API_URL;
 
 // Authentication with Instagram
 const authWithInstagram = (sessionCode) => {
-	const authWithInstagramSuccess = (authInfo) => {
-		localStorage.setItem('X-Access-Token', authInfo['token']);
-		localStorage.setItem('X-User-Id', authInfo['token'].split(':')[0]);
+	const successed = (authInfo) => {
+		console.log(authInfo)
+
+		localStorage.setItem('X-Access-Token', authInfo['jwt']);
+		localStorage.setItem('X-User-Id', authInfo['id']);
 		localStorage.setItem('X-Instagram-Access-Token', authInfo['inst_token'])
 
-		return { type: AUTHENTICATE_SUCCESS }
+		return { type: AUTHENTICATE_SUCCESS, payload: authInfo }
 	};
 
-	const authWithInstagramFailure = () => ({
-		type: AUTHENTICATE_FAILURE
-	});
-
 	return (dispatch) => axios.get(`${apiUrl}/auth/instagram/callback?code=${sessionCode}`)
-		.then(res => dispatch(authWithInstagramSuccess(res.data)))
-		.catch(req => dispatch(authWithInstagramFailure(req.response.data)));
+		.then(res => {
+			console.log(res.data)
+			dispatch(successed(res.data))
+		})
+		.catch(req => console.log(req));
 };
 
 // Localstorage cleaning and authenticated state changing
