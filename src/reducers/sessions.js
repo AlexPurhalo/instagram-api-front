@@ -8,7 +8,7 @@ export const INITIAL_STATE = {
 	}
 };
 
-import {
+import  {
 	AUTHENTICATE_SUCCESS,
 	AUTHENTICATE_FAILURE,
 	AUTO_SIGN_IN,

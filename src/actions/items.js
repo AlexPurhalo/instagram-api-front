@@ -1,7 +1,7 @@
 // Node modules
 import axios from 'axios'
 
-// Actions import
+// Action types import
 
 // Environment variables
 const apiUrl = process.env.API_URL;
@@ -12,7 +12,7 @@ const headers = {
 		'X-User-Id': localStorage.getItem('X-User-Id') }
 };
 
-// Fetches user items
+// Fetches user's items
 const fetchUserItems = () =>
 	axios.get(`${apiUrl}/items`, headers)
 		.then(res => console.log(res.data));

@@ -13,7 +13,6 @@ import { connect } from 'react-redux'
 
 	componentWillMount() {
 		this.props.location.query.code && (this.instagramSessionCode = this.props.location.query.code)
-		// browserHistory.push('/')
 	}
 
 	render () {

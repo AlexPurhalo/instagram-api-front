@@ -5,18 +5,20 @@ import { connect } from 'react-redux';
 // Components import
 import NewItemForm from "./new-item-form";
 
-// Actions import
-
-
 // DashboardPage
 class DashboardPage extends Component {
+	componentWillMount() {
+		const { itemsCount } = this.props
+
+		itemsCount && itemsCount && console.log('works')
+	}
+
 	render() {
 		const { itemsCount } = this.props
 
 		return (
 			<div className="dashboard">
 				{
-					itemsCount && itemsCount < 2 &&
 					<NewItemForm />
 				}
 			</div>
