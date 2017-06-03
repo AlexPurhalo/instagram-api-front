@@ -2,6 +2,8 @@
 import axios from 'axios'
 
 // Action types import
+import { CREATE_ITEM_SUCCESS } from '../constants/photos'
+import { FETCH_ITEMS_SUCCESS } from '../constants/items'
 
 // Environment variables
 const apiUrl = process.env.API_URL;
@@ -14,7 +16,22 @@ const headers = {
 
 // Fetches user's items
 const fetchUserItems = () =>
-	axios.get(`${apiUrl}/items`, headers)
-		.then(res => console.log(res.data));
+	(dispatch) => axios.get(`${apiUrl}/items`, headers)
+		.then(res => dispatch({
+			type: FETCH_ITEMS_SUCCESS, payload: { items: res.data }
+		}));
 
-export { fetchUserItems }
+// Creates a new item
+const createItem = (itemInfo) => {
+	const successed = (items) => {
+		return {
+			type: CREATE_ITEM_SUCCESS,
+			payload: items
+		}
+	};
+
+	return (dispatch) => axios.post(`${apiUrl}/items`, itemInfo, headers)
+		.then(res => dispatch(successed(res.data)))
+};
+
+export { fetchUserItems, createItem }

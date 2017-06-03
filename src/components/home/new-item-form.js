@@ -4,21 +4,21 @@ import { connect } from 'react-redux';
 
 // Actions import
 import { fetchUserPhotos, hidePhoto } from '../../actions/photos'
+import { fetchUserItems } from '../../actions/items'
 
 // Shows form to add the new items
 class NewItemForm extends Component {
 	componentWillMount() {
-		this.props.fetchUserPhotos()
+		this.props.fetchUserPhotos();
+		this.props.fetchUserItems();
 	}
 
 	render() {
-		const { photosToProposition, chosenPhotos } = this.props
-
+		const { photosToProposition, chosenPhotos, items } = this.props
+		console.log(items && items[0])
 		const imgStyle = (address) => {
 			return { backgroundImage: `url(${address})` }
 		}
-		console.log(photosToProposition && photosToProposition.length)
-		console.log(chosenPhotos)
 
 		return (
 			<form className="new-item-form">
@@ -56,6 +56,27 @@ class NewItemForm extends Component {
 						</ul>
 					</div>
 				</div>
+
+				{
+					items &&
+					<div className="items-list">
+						<ul>
+							{items.map(item =>
+								<li className="item" key={item.id}>
+									<h5>{item.name}</h5>
+									<p>{item.description}</p>
+									<ul>
+										{item.photos.map(photo =>
+										<div style={imgStyle(photo.address)} className="item-image">
+										</div>
+										)}
+									</ul>
+								</li>
+							)}
+						</ul>
+					</div>
+				}
+
 			</form>
 		);
 	}
@@ -64,8 +85,9 @@ class NewItemForm extends Component {
 function mapStateToProps(state) {
 	return {
 		photosToProposition: state.photos.photos,
-		chosenPhotos: state.photos.chosenPhotos
+		chosenPhotos: state.photos.chosenPhotos,
+		items: state.items.items
 	}
 }
 
-export default connect(mapStateToProps, { fetchUserPhotos, hidePhoto })(NewItemForm);
+export default connect(mapStateToProps, { fetchUserItems, fetchUserPhotos, hidePhoto })(NewItemForm);
