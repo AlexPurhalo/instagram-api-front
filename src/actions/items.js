@@ -23,6 +23,7 @@ const fetchUserItems = () =>
 
 // Creates a new item
 const createItem = (itemInfo) => {
+	debugger
 	const successed = (items) => {
 		return {
 			type: CREATE_ITEM_SUCCESS,

@@ -2,25 +2,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Actions import
+import { fetchUserPhotos, hidePhoto } from '../../actions/photos'
+import { fetchUserItems, createItem } from '../../actions/items'
+
 // Components import
 import NewItemForm from "./new-item-form";
 
 // DashboardPage
 class DashboardPage extends Component {
 	componentWillMount() {
-		const { itemsCount } = this.props
+		const { fetchUserPhotos, fetchUserItems } = this.props
 
-		itemsCount && itemsCount && console.log('works')
+		fetchUserPhotos();
+		fetchUserItems();
 	}
 
 	render() {
-		const { itemsCount } = this.props
+		const { unusedPhotos, chosenPhotos, items, hidePhoto } = this.props;
+		const imgStyle = (address) => ({ backgroundImage: `url(${address})` });
 
 		return (
 			<div className="dashboard">
-				{
-					<NewItemForm />
-				}
+				<NewItemForm
+					unusedPhotos={unusedPhotos}
+					chosenPhotos={chosenPhotos}
+					items={items}
+					hidePhoto={hidePhoto}
+					imgStyle={imgStyle}
+				/>
 			</div>
 		);
 	}
@@ -28,8 +38,9 @@ class DashboardPage extends Component {
 
 function mapStateToProps(state) {
 	return {
-		itemsCount: state.sessions.profile.itemsCount
+		unusedPhotos: state.photos.photos,
+		chosenPhotos: state.photos.chosenPhotos,
+		items: state.items.items
 	}
 }
-
-export default connect(mapStateToProps)(DashboardPage);
+export default connect(mapStateToProps, { fetchUserItems, fetchUserPhotos, hidePhoto, createItem })(DashboardPage);
