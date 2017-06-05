@@ -1,12 +1,17 @@
 // Node modules import
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Text } from 'react-form'
 
 // Shows form to add the new items
-const NewItemForm = ({ items, chosenPhotos, unusedPhotos, imgStyle, hidePhoto }) =>
-	<Form>
-		<div className="new-item-form">
+const NewItemForm = (
+	{
+		data: { items, photos },
+		actions: { styleImg, hidePhoto, addValue, submitForm }
+	}
+) => {
+	return (
+		<form className="new-item-form" onSubmit={submitForm}>
 			<div className="inputs">
 				<ul className="inline-list">
 					<li className="inline-block">
@@ -18,14 +23,14 @@ const NewItemForm = ({ items, chosenPhotos, unusedPhotos, imgStyle, hidePhoto })
 					</li>
 					<li className="inline-block">
 						<Text
-							field="title"
+							field="price"
 							placeholder="00.00"
 							className="underline-input price-input"
 						/>
 					</li>
 					<li className="inline-block">
 						<Text
-							field="priceKind"
+							field="price_kind"
 							placeholder="UAH"
 							className="underline-input price-input"
 						/>
@@ -34,26 +39,26 @@ const NewItemForm = ({ items, chosenPhotos, unusedPhotos, imgStyle, hidePhoto })
 			</div>
 			<div className="photos-section">
 				{
-					chosenPhotos.length > 0 &&
+					photos.chosen.length > 0 &&
 					<div className="chosen">
 						<div className="title">Chosen photos</div>
 						<ul className="inline-list">
-							{chosenPhotos.map(photo =>
+							{photos.chosen.map(photo =>
 								<li key={photo.id} className="inline-block">
-									<div style={imgStyle(photo.address)} className="photo">
+									<div style={styleImg(photo.address)} className="photo">
 									</div>
 								</li>
 							)}
 						</ul>
-						<button className="create-btn btn btn-default">Create</button>
+						<button type='submit' className="create-btn btn btn-default">Create</button>
 					</div>
 				}
 				<div className="to-proposition">
 					<div className="title">Chose photo for your item</div>
 					<ul className="inline-list">
-						{unusedPhotos && unusedPhotos.map(photo =>
+						{photos.unused && photos.unused.map(photo =>
 							<li key={photo.id} className="inline-block">
-								<div style={imgStyle(photo.address)} className="photo" onClick={() => hidePhoto(photo)}>
+								<div style={styleImg(photo.address)} className="photo" onClick={() => hidePhoto(photo, addValue)}>
 								</div>
 							</li>
 						)}
@@ -68,10 +73,10 @@ const NewItemForm = ({ items, chosenPhotos, unusedPhotos, imgStyle, hidePhoto })
 							<li className="item" key={item.id}>
 								<h5>{item.name}</h5>
 								<p>{item.description}</p>
-								<ul>
+								<ul className="inline-list">
 									{item.photos.map(photo =>
-										<div style={imgStyle(photo.address)} className="item-image">
-										</div>
+										<li style={styleImg(photo.address)} className="inline-block item-image">
+										</li>
 									)}
 								</ul>
 							</li>
@@ -79,7 +84,10 @@ const NewItemForm = ({ items, chosenPhotos, unusedPhotos, imgStyle, hidePhoto })
 					</ul>
 				</div>
 			}
-		</div>
-	</Form>;
+		</form>
+	)
+}
+
 
 export default NewItemForm;
+

@@ -1,9 +1,7 @@
 // Node modules
-import axios from 'axios'
-
+import axios from "axios";
 // Action types import
-import { CREATE_ITEM_SUCCESS } from '../constants/photos'
-import { FETCH_ITEMS_SUCCESS } from '../constants/items'
+import { FETCH_ITEMS_SUCCESS, CREATE_ITEM_SUCCESS } from "../constants/items";
 
 // Environment variables
 const apiUrl = process.env.API_URL;
@@ -14,25 +12,21 @@ const headers = {
 		'X-User-Id': localStorage.getItem('X-User-Id') }
 };
 
-// Fetches user's items
-const fetchUserItems = () =>
-	(dispatch) => axios.get(`${apiUrl}/items`, headers)
+// Creates a new item
+const createItem = (itemInfo) => (dispatch) =>
+	axios.post(`${apiUrl}/items`, itemInfo, headers)
 		.then(res => dispatch({
-			type: FETCH_ITEMS_SUCCESS, payload: { items: res.data }
+			type: CREATE_ITEM_SUCCESS,
+			payload: { items: res.data }
 		}));
 
-// Creates a new item
-const createItem = (itemInfo) => {
-	debugger
-	const successed = (items) => {
-		return {
-			type: CREATE_ITEM_SUCCESS,
-			payload: items
-		}
-	};
+// Fetches user's items
+const fetchUserItems = () => (dispatch) =>
+	axios.get(`${apiUrl}/items`, headers)
+		.then(res => dispatch({
+			type: FETCH_ITEMS_SUCCESS,
+			payload: { items: res.data }
+		}));
 
-	return (dispatch) => axios.post(`${apiUrl}/items`, itemInfo, headers)
-		.then(res => dispatch(successed(res.data)))
-};
 
 export { fetchUserItems, createItem }
