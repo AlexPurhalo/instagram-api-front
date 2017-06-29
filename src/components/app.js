@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 	}
 
 	render () {
+		console.log(process.env.API_URL)
 		return (
 			<div className="app">
 				<Header instagramSessionCode={this.instagramSessionCode} />
