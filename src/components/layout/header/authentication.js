@@ -19,7 +19,7 @@ class Authentication extends Component {
 		} = this.props;
 
 		let sessionCode = instagramSessionCode;
-		sessionCode && authWithInstagram(sessionCode);
+		sessionCode && authWithInstagram(sessionCode, window.location.origin);
 		browserHistory.push('/')
 		authenticated && fetchAccountData();
 	}
@@ -27,13 +27,13 @@ class Authentication extends Component {
 	render() {
 		const serviceUrl = 'https://api.instagram.com',
 			clientId 			 = process.env.CLIENT_ID,
-			redirectUri 	 = process.env.REDIRECT_URI,
+			redirectUri 	 = window.location.href, ///sdfsdfsdf
 			responseType 	 = 'code';
 
 		const authUrl = `
 			${serviceUrl}/oauth/authorize/
 			?client_id=${clientId}
-			&redirect_uri=${redirectUri}/
+			&redirect_uri=${redirectUri}
 			&response_type=${responseType}
 		`;
 

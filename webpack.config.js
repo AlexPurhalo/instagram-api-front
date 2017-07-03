@@ -34,7 +34,9 @@ module.exports = {
 	},
 	devServer: {
 		historyApiFallback: true,
-		contentBase: './'
+		contentBase: './',
+        compress: true,
+        disableHostCheck: true,   // That solved it
 	},
 	plugins: [
 		new webpack.DefinePlugin({

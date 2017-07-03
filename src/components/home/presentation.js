@@ -8,7 +8,7 @@ export default class PresentationPage extends Component {
 	render() {
 		const serviceUrl = 'https://api.instagram.com',
 			clientId 			 = process.env.CLIENT_ID,
-			redirectUri 	 = process.env.REDIRECT_URI,
+			redirectUri 	 = window.location.origin,
 			responseType 	 = 'code';
 
 		const authUrl = `
@@ -18,6 +18,7 @@ export default class PresentationPage extends Component {
 			&response_type=${responseType}
 		`;
 
+		console.log(window.location.origin)
 		return (
 			<div className="presentation-page">
 				<div className="presentation">
